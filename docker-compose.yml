@@ -43,7 +43,7 @@ services:
       dockerfile: dockerfile
     restart: always
     volumes:
-    - ./microservicio-encuestas/dataaccess/mysql-data:/var/lib/mysql
+    - ./microservicio-encuestas/src/dataaccess/mysql-data:/var/lib/mysql
     networks:
      - encuestapp-network
 
@@ -61,7 +61,7 @@ services:
       dockerfile: dockerfile
     restart: always
     volumes:
-    - ./microservicio-de-login&register/dataaccess/mysql-data:/var/lib/mysql
+    - ./microservicio-de-login&register/src/dataaccess/mysql-data:/var/lib/mysql
     networks:
      - encuestapp-network
 
