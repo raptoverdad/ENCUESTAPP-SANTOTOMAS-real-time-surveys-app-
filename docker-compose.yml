@@ -1,0 +1,80 @@
+version: '3.8'
+networks:
+  encuestapp-network:
+    driver: bridge
+services:
+  encuestapp-microservicio-encuestas:
+    image: encuestapp-microservicio-encuentas:v1
+    depends_on:
+      - microservicio-encuestas-db
+    container_name: encuestapp-microservicio-encuentas
+    ports:
+      - "3001:3001"
+    build:
+      context: ./microservicio-encuestas
+      dockerfile: dockerfile
+    networks:
+      - encuestapp-network
+
+  encuestapp-microservicio-login-register:
+    image: encuestapp-microservicio-login-register:v1
+    depends_on:
+      - microservicio-login-register-db
+    container_name: encuestapp-microservicio-login-register
+    ports:
+      - "3000:3000"
+    build:
+      context: ./microservicio-de-login&register
+      dockerfile: dockerfile
+    networks:
+      - encuestapp-network
+
+  microservicio-encuestas-db:
+    image: microservicio-encuestas-db:v1
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: microservicio-encuestas-db
+    environment:
+      - MYSQL_DATABASE=encuestappsockets
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - "3310:3306"
+    build:
+      context: ./microservicio-encuestas/src/dataaccess/database-config
+      dockerfile: dockerfile
+    restart: always
+    volumes:
+    - ./microservicio-encuestas/dataaccess/mysql-data:/var/lib/mysql
+    networks:
+     - encuestapp-network
+
+  microservicio-login-register-db:
+    image: microservicio-login-register-db:v1
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: microservicio-login-register-db
+    environment:
+      - MYSQL_DATABASE=encuestapphttp
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - "3309:3306"
+    build:
+      context: ./microservicio-de-login&register/src/dataaccess/database-config
+      dockerfile: dockerfile
+    restart: always
+    volumes:
+    - ./microservicio-de-login&register/dataaccess/mysql-data:/var/lib/mysql
+    networks:
+     - encuestapp-network
+
+  vue-app:
+    image: encuestapp-vue-app:v1
+    container_name: encuestapp-vue-app
+    build:
+      context: ./vue-front
+      dockerfile: dockerfile
+    ports:
+      - "8080:80" # Puedes mapear el puerto 80 del contenedor al puerto que prefieras en tu máquina local
+    networks:
+      - encuestapp-network
+
+volumes:
+  mysql-data:
