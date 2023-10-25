@@ -12,7 +12,7 @@ B)tambien puedes desplegar esta aplicación en tu computadora local. para hacerl
 para votar, deberás registrarte primero. no estás registrado, Puedes ver los votos de las encuestas en tiempo real igualmente.
 ![Aplicación](https://res.cloudinary.com/debvhmcid/image/upload/v1698216643/encuesta_itwu3v.jpg)
 Inicia sesión para adquirir todas las funcionalidades de la aplicacíon :smile:
-![Aplicación](https://res.cloudinary.com/debvhmcid/image/upload/v1698132363/angular-dotnet-green_llcxfz.jpg)
+![Aplicación](https://res.cloudinary.com/debvhmcid/image/upload/v1698216643/encuestas_urijuj.jpg)
 
 
 
