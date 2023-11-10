@@ -1,4 +1,4 @@
-# ENCUESTAPP-SANTOTOMAS (ENCUESTAS EN TIEMPO REAL) - Rodrigo miranda
+# ENCUESTAPP-SANTOTOMAS (aplicación de encuestas en TIEMPO REAL y OPEN SOURCE) - Rodrigo miranda
 Tecnologia de tiempo real para votar encuestas. cuenta con mucho trabajo de investigación para que los alumnos puedan acceder a votar todos los ramos posibles como podamos insertar en la aplicación.
 ![Aplicación](https://res.cloudinary.com/debvhmcid/image/upload/v1698216921/inicio_q14p2b.jpg)
 # COMPONENTES
