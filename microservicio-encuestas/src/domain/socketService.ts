@@ -58,11 +58,11 @@ export class socketService {
         if(result!=null || result!="no votes"){  
           socket.emit('respuestaMisVotos',result)
         }else if(result=="no votes"){
-          socket.emit('misVotosNoVotes')  
+          socket.emit('respuestaMisVotos',"no votes")
         }else if( result==null){
-          socket.emit('misVotosError')  
+          socket.emit('respuestaMisVotos',"no votes")
         }else{
-          socket.emit('misVotosError')  
+          socket.emit('respuestaMisVotos',"no votes")
         }
       }
 
@@ -71,8 +71,9 @@ export class socketService {
   socket.on("newvote", async (json: any, senderSocket:any) => {  
      console.log("el mensaje enviado con newvote:",json)
     let tokenValido=await decodeToken(json.token,CONFIG.JWT_SECRET)
-
+    await console.log("TOKEN ENVIADO AL FRONT:",tokenValido)
     if(tokenValido != null){
+      await console.log("EL TOKEN NO ES NULL:",tokenValido)
       let pakete=json
       let encuesta=json.encuesta
       let insertVote=await (await gateway).insertVote(pakete)

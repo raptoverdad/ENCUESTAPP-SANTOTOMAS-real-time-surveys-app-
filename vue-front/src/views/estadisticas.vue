@@ -84,7 +84,7 @@
     },
     mounted() {
         try {
-this.socket = io('http://localhost:3001/', {
+this.socket = io('http://localhost:3006/', {
   withCredentials: false,
   query: {
     "key": "skrillex",

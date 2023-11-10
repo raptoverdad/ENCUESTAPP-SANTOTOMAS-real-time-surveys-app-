@@ -162,14 +162,25 @@ export class UserGateway {
 
   } 
   private async setupDatabase(): Promise<void> {
-    try {
-      this.pool = mysql.createPool({
-        host:"microservicio-encuestas-db",
-        user: "root",
-        password: "123456",
-        database: "encuestappsockets",
-      });
-      console.log('DATA ACCESS:Connection established')
-      }catch{
-        console.log("ERROR: BASE DE DATOS NO SE CONECTÓ ")
-      }}}
+    let connected = false;
+    
+    while (!connected) {
+      try {
+        this.pool = await mysql.createPool({
+          host: "microservicios-db",
+          user: "root",
+          password: "123456",
+          database: "encuestapphttp",
+        });
+        console.log("connected to database")
+        connected = true; // Establecemos la conexión con éxito
+      } catch (error) {
+        console.log("ERRORRRRRR")
+        connected=false
+        console.error("Error al conectar a la base de datos:", error);
+        // Esperamos antes de intentar nuevamente
+        await new Promise((resolve) => setTimeout(resolve, 2000)); // Puedes ajustar el tiempo de espera según tus necesidades
+      }
+
+    }
+   } }

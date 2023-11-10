@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+  namespace: vue-expressjs-crud
+spec:
+  selector:
+    matchLabels:
+      app: vue-expressjs-crud-database 
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: vue-expressjs-crud-database 
+    spec:
+      containers:
+      - image: raptoverdad/vue-express-crud-database:master
+        name: vue-expressjs-crud-database
+        imagePullPolicy: Always
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "123456"
+        - name: MYSQL_DATABASE
+          value: "vueexpresscruddatabase"
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: express-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: express-persistent-storage
+        persistentVolumeClaim:
+          claimName: express-pv-claim

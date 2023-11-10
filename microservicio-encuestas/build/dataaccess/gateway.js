@@ -220,6 +220,7 @@ var UserGateway = /** @class */ (function () {
                         success = false;
                         removeVote = "DELETE FROM preguntasyrespuestas WHERE pregunta = ? AND usuario = ? AND encuesta=?;";
                         removeValues = [pregunta, usuario, encuesta];
+                        if (!(this.pool != null)) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.pool.execute(removeVote, removeValues)];
                     case 1:
                         resultado = _a.sent();
@@ -232,7 +233,8 @@ var UserGateway = /** @class */ (function () {
                                 success = false;
                             }
                         }
-                        return [2 /*return*/, success];
+                        _a.label = 2;
+                    case 2: return [2 /*return*/, success];
                 }
             });
         });
@@ -266,21 +268,43 @@ var UserGateway = /** @class */ (function () {
     };
     UserGateway.prototype.setupDatabase = function () {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                try {
-                    this.pool = mysql.createPool({
-                        host: "containers-us-west-96.railway.app",
-                        user: "root",
-                        password: "wl0fUptiAnXcgaExGjl2",
-                        database: "railway",
-                        port: 7443
-                    });
-                    console.log('DATA ACCESS:Connection established');
+            var connected, _a, error_2;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        connected = false;
+                        _b.label = 1;
+                    case 1:
+                        if (!!connected) return [3 /*break*/, 7];
+                        _b.label = 2;
+                    case 2:
+                        _b.trys.push([2, 4, , 6]);
+                        _a = this;
+                        return [4 /*yield*/, mysql.createPool({
+                                host: "microservicios-db",
+                                user: "root",
+                                password: "123456",
+                                database: "encuestapphttp",
+                            })];
+                    case 3:
+                        _a.pool = _b.sent();
+                        console.log("connected to database");
+                        connected = true; // Establecemos la conexión con éxito
+                        return [3 /*break*/, 6];
+                    case 4:
+                        error_2 = _b.sent();
+                        console.log("ERRORRRRRR");
+                        connected = false;
+                        console.error("Error al conectar a la base de datos:", error_2);
+                        // Esperamos antes de intentar nuevamente
+                        return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 2000); })];
+                    case 5:
+                        // Esperamos antes de intentar nuevamente
+                        _b.sent(); // Puedes ajustar el tiempo de espera según tus necesidades
+                        return [3 /*break*/, 6];
+                    case 6: return [3 /*break*/, 1];
+                    case 7: return [2 /*return*/];
                 }
-                catch (_b) {
-                    console.log("ERROR: BASE DE DATOS NO SE CONECTÓ ");
-                }
-                return [2 /*return*/];
             });
         });
     };

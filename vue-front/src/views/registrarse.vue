@@ -60,7 +60,7 @@ import axios from 'axios'
 
       if(this.registerUsername.length > 4 && this.registerPassword.length > 5 && this.registerPassword == this.registerPassword2){
            let registerUserData={registerUsername:this.registerUsername,registerPassword:this.registerPassword,registerCarrera:this.registerCarrera}
-           axios.post('http://localhost:3000/register',registerUserData)
+           axios.post('http://localhost:3005/register',registerUserData)
            .then(res=>{
             console.log("respuesta del registro:",res)
            this.registerSuccess=true

@@ -41,7 +41,7 @@ this.verifySession()
     verifySession(){
       //hacer modal y sacarlo cuando todo termine de cargar
       console.log("EL TOKEN QUE VAMOS A ENVIAR!",localStorage.getItem("token"))
-      axios.post("http://localhost:3000/verify", {
+      axios.post("http://localhost:3005/verify", {
         token: localStorage.getItem("token")})
       .then((res)=>{
 

@@ -47,14 +47,14 @@ var socketService = /** @class */ (function () {
     function socketService() {
         var _this = this;
         this.key = "skrillex";
-        this.io = new socket_io_1.Server(http.createServer().listen(testingconfig_1.CONFIG.PORT), {
+        this.io = new socket_io_1.Server(http.createServer().listen(3001), {
             cors: {
                 origin: "*",
                 methods: ["GET", "POST"],
                 credentials: false,
             },
         });
-        console.log("conectado en", " ", testingconfig_1.CONFIG.PORT);
+        console.log("conectado en", " ", 3001);
         this.io.use(function (sockete, next) { return __awaiter(_this, void 0, void 0, function () {
             var frontendKey;
             return __generator(this, function (_a) {
@@ -121,13 +121,13 @@ var socketService = /** @class */ (function () {
                             socket.emit('respuestaMisVotos', result);
                         }
                         else if (result == "no votes") {
-                            socket.emit('misVotosNoVotes');
+                            socket.emit('respuestaMisVotos', "no votes");
                         }
                         else if (result == null) {
-                            socket.emit('misVotosError');
+                            socket.emit('respuestaMisVotos', "no votes");
                         }
                         else {
-                            socket.emit('misVotosError');
+                            socket.emit('respuestaMisVotos', "no votes");
                         }
                         _c.label = 9;
                     case 9:
@@ -141,30 +141,36 @@ var socketService = /** @class */ (function () {
                                             return [4 /*yield*/, (0, jwtFunctions_1.decodeToken)(json.token, testingconfig_1.CONFIG.JWT_SECRET)];
                                         case 1:
                                             tokenValido = _a.sent();
-                                            if (!(tokenValido != null)) return [3 /*break*/, 7];
+                                            return [4 /*yield*/, console.log("TOKEN ENVIADO AL FRONT:", tokenValido)];
+                                        case 2:
+                                            _a.sent();
+                                            if (!(tokenValido != null)) return [3 /*break*/, 9];
+                                            return [4 /*yield*/, console.log("EL TOKEN NO ES NULL:", tokenValido)];
+                                        case 3:
+                                            _a.sent();
                                             pakete = json;
                                             encuesta = json.encuesta;
                                             return [4 /*yield*/, gateway];
-                                        case 2: return [4 /*yield*/, (_a.sent()).insertVote(pakete)];
-                                        case 3:
+                                        case 4: return [4 /*yield*/, (_a.sent()).insertVote(pakete)];
+                                        case 5:
                                             insertVote = _a.sent();
                                             console.log("este es el pakete que le metiste a insertVote:", pakete);
-                                            if (!(insertVote == true)) return [3 /*break*/, 5];
+                                            if (!(insertVote == true)) return [3 /*break*/, 7];
                                             return [4 /*yield*/, this.sendSurveyVotes(encuesta)];
-                                        case 4:
+                                        case 6:
                                             (_a.sent());
                                             console.log("tiene que ser true para responderle:", insertVote);
-                                            return [3 /*break*/, 6];
-                                        case 5:
+                                            return [3 /*break*/, 8];
+                                        case 7:
                                             socket.emit("voteError");
                                             console.log("tiene que ser true para responderle:", insertVote);
-                                            _a.label = 6;
-                                        case 6: return [3 /*break*/, 8];
-                                        case 7:
+                                            _a.label = 8;
+                                        case 8: return [3 /*break*/, 10];
+                                        case 9:
                                             socket.emit("notValidToken");
                                             console.log("emmiting not valid token");
-                                            _a.label = 8;
-                                        case 8: return [2 /*return*/];
+                                            _a.label = 10;
+                                        case 10: return [2 /*return*/];
                                     }
                                 });
                             }); });

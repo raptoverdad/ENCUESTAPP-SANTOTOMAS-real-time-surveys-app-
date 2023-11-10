@@ -89,7 +89,7 @@ console.log(state.token)
 }
 ,cerrarSesion(){
   localStorage.clear()
-  window.location.href="https://localhost:8080/"
+  window.location.href="http://localhost:8080/"
 },   goToHome:()=>{
   this.$router.push('homeView')
 },

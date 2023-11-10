@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var socketService_1 = require("./domain/socketService");
 var server = new socketService_1.socketService();
-//const express = require('express');
+var express = require('express');
 //const app = express();
 //const limiter = rateLimit({
 //  windowMs: 60 * 60 * 1000, // 1 hora

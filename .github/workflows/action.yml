@@ -12,14 +12,14 @@ jobs:
             dockerfile: microservicio-encuestas/dockerfile
             context: ./microservicio-encuestas
           - image: raptoverdad/encuestapp-microservicio-de-login-register
-            dockerfile: microservicio-de-login&register/dockerfile
-            context: ./microservicio-de-login&register
+            dockerfile: microservicio-de-login-register/dockerfile
+            context: ./microservicio-de-login-register
           - image: raptoverdad/encuestapp-microservicio-encuestas-db
             dockerfile: microservicio-encuestas/src/dataaccess/database-config/dockerfile
             context: ./microservicio-encuestas/src/dataaccess/database-config
           - image: raptoverdad/encuestapp-microservicio-login-register-db
-            dockerfile: microservicio-de-login&register/src/dataaccess/database-config/dockerfile
-            context: ./microservicio-de-login&register/src/dataaccess/database-config
+            dockerfile: microservicio-de-login-register/src/dataaccess/database-config/dockerfile
+            context: ./microservicio-de-login-register/src/dataaccess/database-config
           - image: raptoverdad/encuestapp-vue-app
             dockerfile: vue-front/dockerfile
             context: ./vue-front

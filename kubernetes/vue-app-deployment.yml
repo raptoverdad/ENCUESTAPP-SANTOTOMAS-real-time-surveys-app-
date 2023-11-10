@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vue-app-deployment
+  namespace: vue-expressjs-crud
+spec:
+  replicas: 1  # Ajusta el número de réplicas según tus necesidades
+  selector:
+    matchLabels:
+      app: vue-app
+  template:
+    metadata:
+      labels:
+        app: vue-app
+    spec:
+      containers:
+      - name: app-container
+        image: raptoverdad/vue-express-crud-front:master
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+
+          

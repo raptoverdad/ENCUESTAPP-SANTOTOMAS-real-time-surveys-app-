@@ -4,12 +4,12 @@ networks:
     driver: bridge
 services:
   encuestapp-microservicio-encuestas:
-    image: encuestapp-microservicio-encuentas:v1
+    image: encuestapp-microservicio-encuestas:v1
     depends_on:
-      - microservicio-encuestas-db
-    container_name: encuestapp-microservicio-encuentas
+      - microservicios-db
+    container_name: encuestapp-microservicio-encuestas
     ports:
-      - "3001:3001"
+      - "3006:3001"
     build:
       context: ./microservicio-encuestas
       dockerfile: dockerfile
@@ -19,49 +19,32 @@ services:
   encuestapp-microservicio-login-register:
     image: encuestapp-microservicio-login-register:v1
     depends_on:
-      - microservicio-login-register-db
+      - microservicios-db
     container_name: encuestapp-microservicio-login-register
     ports:
-      - "3000:3000"
+      - "3005:3000"
     build:
-      context: ./microservicio-de-login&register
+      context: ./microservicio-de-login-register
       dockerfile: dockerfile
     networks:
       - encuestapp-network
 
-  microservicio-encuestas-db:
-    image: microservicio-encuestas-db:v1
-    command: --default-authentication-plugin=mysql_native_password
-    container_name: microservicio-encuestas-db
-    environment:
-      - MYSQL_DATABASE=encuestappsockets
-      - MYSQL_ROOT_PASSWORD=123456
-    ports:
-      - "3310:3306"
-    build:
-      context: ./microservicio-encuestas/src/dataaccess/database-config
-      dockerfile: dockerfile
-    restart: always
-    volumes:
-    - ./microservicio-encuestas/src/dataaccess/mysql-data:/var/lib/mysql
-    networks:
-     - encuestapp-network
 
-  microservicio-login-register-db:
-    image: microservicio-login-register-db:v1
+  microservicios-db:
+    image: microservicios-db:v1
     command: --default-authentication-plugin=mysql_native_password
-    container_name: microservicio-login-register-db
+    container_name: microservicios-db
     environment:
       - MYSQL_DATABASE=encuestapphttp
       - MYSQL_ROOT_PASSWORD=123456
     ports:
-      - "3309:3306"
+      - "30001:3306"
     build:
-      context: ./microservicio-de-login&register/src/dataaccess/database-config
+      context: ./microservicio-de-login-register/src/dataaccess/database-config
       dockerfile: dockerfile
     restart: always
     volumes:
-    - ./microservicio-de-login&register/src/dataaccess/mysql-data:/var/lib/mysql
+    - ./microservicio-de-login-register/src/dataaccess/mysql-data:/var/lib/mysql
     networks:
      - encuestapp-network
 

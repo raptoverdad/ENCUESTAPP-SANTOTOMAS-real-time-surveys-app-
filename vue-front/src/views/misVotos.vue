@@ -60,7 +60,7 @@
        
             if(localStorage.getItem("token")){
                 try {
-                this.socket = io('http://localhost:3001/', {
+                this.socket = io('http://localhost:3006/', {
               withCredentials: false,
                   query: {
                "key": "skrillex",
@@ -74,7 +74,7 @@
             }
  try {
     this.socket.on("respuestaMisVotos", (response) => {
-    
+        console.log("response de mis votos:",response)
         this.totalVotos=0
                this.error=false
             if(response.length > 0 && response != "no votes"){

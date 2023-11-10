@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapi-deployment
+  namespace: vue-expressjs-crud
+spec:
+  replicas: 3  # El número de réplicas que deseas
+  selector:
+    matchLabels:
+      app: express-webapi
+  template:
+    metadata:
+      labels:
+        app: express-webapi
+    spec:
+      containers:
+      - name: express-webapi
+        image: raptoverdad/vue-express-crud-back:master
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
